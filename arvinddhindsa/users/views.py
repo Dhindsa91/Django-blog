@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm #Django Built in Form for
 from django.contrib import messages #message.success message.debug
 from django.shortcuts import redirect #*Important how to redirect
 from .forms import UserRegistrationForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -27,6 +28,11 @@ def register(request):
 
 
 # def login(request): #This doesnt need to be created because this is a pre-existing view already in Django
+
+@login_required
+def profile(request):
+
+    return render(request,'users/profile.html')
 
 
 
