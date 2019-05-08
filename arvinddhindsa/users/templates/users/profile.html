@@ -1,5 +1,26 @@
-{% extends "blog/base.html"%} 
+{% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
-{%block content%}
-   <h1>{{user.username}}</h1> <!-- Not something we need to pass into the context this is a DJango Variable -->
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> <!--path to the profile image-->
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <form method=POST enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Info</legend>
+                {{ u_form|crispy }} <!-- this is UserCreationForm() data being passed from the view --> <!-- crispy is third party import from us that styles the form with the bootstrap we set-->
+                {{ p_form|crispy }} 
+            <div class='form-group'>
+                <button class='btn-blue' type="submit">Update</button>
+            </div>
+           
+        </fieldset>
+
+    </form>
+    </div>
 {% endblock content %}

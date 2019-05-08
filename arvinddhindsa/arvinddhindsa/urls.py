@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from users import views as user_views                               #always import the view here so you can route it make sure views dont colide
 from django.contrib.auth import views as auth_views                 #this is built into django 
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 # PATH -> VIEW -> TEMPLATE **IMPORTANT
@@ -31,4 +32,5 @@ urlpatterns = [
     path('', include('blog.urls')),
   
    
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  #this had to be configured to the static directory NEED this to serve the static files in addition to our constant in settings.py
+
